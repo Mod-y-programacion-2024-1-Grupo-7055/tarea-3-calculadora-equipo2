@@ -1,4 +1,4 @@
-
+import java.lang.Math;
 /**
  * Clase abstracta que modela a los nodos que contienen operadores aritméticos
  * y paréntesis izquierdos. La clase no puede ser concreta porque la
@@ -80,7 +80,10 @@ public abstract class NodoOperador implements CompositeEA{
     public String toString() {
         String operador = this instanceof NodoSuma ? " + "
                         : this instanceof NodoResta ? " - "
-                        : this instanceof NodoMultiplicacion ? " * " : " / ";
+                        : this instanceof NodoRaizC ? "sqrt" 
+                        : this instanceof NodoMultiplicacion ? " * "
+                        : this instanceof NodoDivision ? " / " : "";
+                        
 
         if (izq != null) {
             return "(" + izq + operador + der + ")";
@@ -105,12 +108,20 @@ public abstract class NodoOperador implements CompositeEA{
                     return new NodoSuma(null,null);
                 case "-":
                     NodoOperador o = new NodoResta(null,null);
-                    o.precedence=anteriorEsOperador? 3:0;
+                    o.precedence=anteriorEsOperador? 4:0;
                     return o;
+                case "sqrt":
+                    return new NodoRaizC(null, null);
+                case "sin":
+                    return new NodoSeno(null, null);
+                case "cos":
+                    return new NodoCoseno(null, null);
+                case "tan":
+                    return new NodoTangente(null, null);
                 case "*":
                     return new NodoMultiplicacion(null,null);
                 case "/":
-                    return new NodoDivision(null,null);
+                    return new NodoDivision(null, null);
                 case "(":
                     return new NodoParentesis();
                 default:
