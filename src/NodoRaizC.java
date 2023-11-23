@@ -1,9 +1,7 @@
-import java.util.StringTokenizer;
-
 public class NodoRaizC extends NodoOperador {
     
     public NodoRaizC(CompositeEA izq, CompositeEA der) {
-        super(izq, der);
+        super(null, der);
         precedence=2;
     }
 

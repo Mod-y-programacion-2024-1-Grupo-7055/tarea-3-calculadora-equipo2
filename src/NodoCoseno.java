@@ -6,7 +6,7 @@ public class NodoCoseno extends NodoOperador {
      * @param der
      */
     public NodoCoseno(CompositeEA izq, CompositeEA der) {
-        super(izq, der);
+        super(null, der);
         precedence=2;
     }
 
@@ -18,10 +18,8 @@ public class NodoCoseno extends NodoOperador {
      */
     @Override
     public double evalua() {
-        double d = der.evalua();
-        if (Double.compare(0, d) == 0) {
-            throw new ArithmeticException("No puedes dividir entre cero");
-        }
-        return izq.evalua() / d;
+        double d = Math.cos(der.evalua());
+        return d;
+
     }
 }

@@ -1,4 +1,3 @@
-import java.lang.Math;
 /**
  * Clase abstracta que modela a los nodos que contienen operadores aritméticos
  * y paréntesis izquierdos. La clase no puede ser concreta porque la
@@ -80,13 +79,20 @@ public abstract class NodoOperador implements CompositeEA{
     public String toString() {
         String operador = this instanceof NodoSuma ? " + "
                         : this instanceof NodoResta ? " - "
-                        : this instanceof NodoRaizC ? "sqrt" 
+                        : this instanceof NodoRaizC ? "r"
+                        : this instanceof NodoSeno ? "s"
+                        : this instanceof NodoCoseno ? "c"
+                        : this instanceof NodoRaizC ? "t"
                         : this instanceof NodoMultiplicacion ? " * "
                         : this instanceof NodoDivision ? " / " : "";
                         
 
         if (izq != null) {
             return "(" + izq + operador + der + ")";
+        } else {
+            if (operador.equals("r") || operador.equals("s") || operador.equals("c") || operador.equals("t")) {
+                return operador +"(" +der + ")";
+            } 
         }
         return  "("+ operador + der + ")";
 
@@ -102,22 +108,31 @@ public abstract class NodoOperador implements CompositeEA{
      * @throws ErrorDeSintaxisException En caso de recibir caracteres extraños.
      */
     public static NodoOperador factoryMethodOperadorNuevo(String s,
-            boolean anteriorEsOperador) throws ErrorDeSintaxisException{
+            boolean anteriorEsOperador) throws ErrorDeSintaxisException {
+        NodoOperador o;
         switch (s) {
                 case "+":
                     return new NodoSuma(null,null);
                 case "-":
-                    NodoOperador o = new NodoResta(null,null);
+                    o = new NodoResta(null,null);
                     o.precedence=anteriorEsOperador? 4:0;
                     return o;
-                case "sqrt":
-                    return new NodoRaizC(null, null);
-                case "sin":
-                    return new NodoSeno(null, null);
-                case "cos":
-                    return new NodoCoseno(null, null);
-                case "tan":
-                    return new NodoTangente(null, null);
+                case "r":
+                    o = new NodoRaizC(null,null);
+                    o.precedence=anteriorEsOperador? 4:0;
+                    return o;
+                case "s":
+                    o = new NodoSeno(null,null);
+                    o.precedence=anteriorEsOperador? 4:0;
+                    return o;
+                case "c":
+                    o = new NodoCoseno(null,null);
+                    o.precedence=anteriorEsOperador? 4:0;
+                    return o;
+                case "t":
+                    o = new NodoTangente(null,null);
+                    o.precedence=anteriorEsOperador? 4:0;
+                    return o;
                 case "*":
                     return new NodoMultiplicacion(null,null);
                 case "/":

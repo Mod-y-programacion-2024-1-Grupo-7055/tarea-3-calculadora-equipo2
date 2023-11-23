@@ -6,7 +6,7 @@ public class NodoTangente extends NodoOperador {
      * @param der
      */
     public NodoTangente(CompositeEA izq, CompositeEA der) {
-        super(izq, der);
+        super(null, der);
         precedence=2;
     }
 
@@ -18,10 +18,7 @@ public class NodoTangente extends NodoOperador {
      */
     @Override
     public double evalua() {
-        double d = der.evalua();
-        if (Double.compare(0, d) == 0) {
-            throw new ArithmeticException("No puedes dividir entre cero");
-        }
-        return izq.evalua() / d;
+        double d = Math.tan(der.evalua());
+        return d;
     }
 }
