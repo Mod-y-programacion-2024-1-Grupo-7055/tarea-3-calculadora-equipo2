@@ -77,24 +77,29 @@ public abstract class NodoOperador implements CompositeEA{
      */
     @Override
     public String toString() {
+        String cadena;
         String operador = this instanceof NodoSuma ? " + "
                         : this instanceof NodoResta ? " - "
                         : this instanceof NodoRaizC ? "r"
                         : this instanceof NodoSeno ? "s"
                         : this instanceof NodoCoseno ? "c"
-                        : this instanceof NodoRaizC ? "t"
+                        : this instanceof NodoTangente ? "t"
                         : this instanceof NodoMultiplicacion ? " * "
                         : this instanceof NodoDivision ? " / " : "";
                         
 
         if (izq != null) {
-            return "(" + izq + operador + der + ")";
+            cadena ="(" + izq + operador + der + ")";
+            return cadena;
         } else {
             if (operador.equals("r") || operador.equals("s") || operador.equals("c") || operador.equals("t")) {
-                return operador +"(" +der + ")";
-            } 
+                cadena = operador + "(" + der + ")";
+                return cadena;
+            } else {
+                cadena ="("+ operador + der + ")";
+            }
         }
-        return  "("+ operador + der + ")";
+        return cadena;
 
     }
     
